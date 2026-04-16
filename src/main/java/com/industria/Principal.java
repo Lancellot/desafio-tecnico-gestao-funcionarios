@@ -11,15 +11,11 @@ import java.util.stream.Collectors;
 
 public class Principal {
 
-    // Formatadores reutilizados em todo o programa
     private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final NumberFormat FORMATO_NUMERO = NumberFormat.getInstance(new Locale("pt", "BR"));
 
     public static void main(String[] args) {
 
-        // ─────────────────────────────────────────────────
-        // 3.1 – Inserir todos os funcionários
-        // ─────────────────────────────────────────────────
         List<Funcionario> funcionarios = new ArrayList<>();
 
         funcionarios.add(new Funcionario("Maria",    LocalDate.of(2000, 10, 18), new BigDecimal("2009.44"),  "Operador"));
@@ -33,15 +29,9 @@ public class Principal {
         funcionarios.add(new Funcionario("Heloísa",  LocalDate.of(2003,  5, 24), new BigDecimal("1606.85"),  "Eletricista"));
         funcionarios.add(new Funcionario("Helena",   LocalDate.of(1996,  9,  2), new BigDecimal("2799.93"),  "Gerente"));
 
-        // ─────────────────────────────────────────────────
-        // 3.2 – Remover o funcionário "João"
-        // ─────────────────────────────────────────────────
         funcionarios.removeIf(f -> f.getNome().equalsIgnoreCase("João"));
         System.out.println("✔ Funcionário João removido da lista.\n");
 
-        // ─────────────────────────────────────────────────
-        // 3.3 – Imprimir todos os funcionários formatados
-        // ─────────────────────────────────────────────────
         System.out.println("══════════════════════════════════════════════════════");
         System.out.println("  3.3 – LISTA DE FUNCIONÁRIOS");
         System.out.println("══════════════════════════════════════════════════════");
@@ -49,24 +39,16 @@ public class Principal {
             imprimirFuncionario(f);
         }
 
-        // ─────────────────────────────────────────────────
-        // 3.4 – Aumento de 10% no salário
-        // ─────────────────────────────────────────────────
         for (Funcionario f : funcionarios) {
             BigDecimal novoSalario = f.getSalario().multiply(new BigDecimal("1.10"));
             f.setSalario(novoSalario);
         }
         System.out.println("\n✔ Salários atualizados com 10% de aumento.\n");
 
-        // ─────────────────────────────────────────────────
-        // 3.5 – Agrupar funcionários por função (Map)
-        // ─────────────────────────────────────────────────
         Map<String, List<Funcionario>> porFuncao = funcionarios.stream()
                 .collect(Collectors.groupingBy(Funcionario::getFuncao));
 
-        // ─────────────────────────────────────────────────
-        // 3.6 – Imprimir funcionários agrupados por função
-        // ─────────────────────────────────────────────────
+
         System.out.println("══════════════════════════════════════════════════════");
         System.out.println("  3.6 – FUNCIONÁRIOS AGRUPADOS POR FUNÇÃO");
         System.out.println("══════════════════════════════════════════════════════");
@@ -78,9 +60,6 @@ public class Principal {
             }
         }
 
-        // ─────────────────────────────────────────────────
-        // 3.8 – Aniversariantes de outubro (10) e dezembro (12)
-        // ─────────────────────────────────────────────────
         System.out.println("\n══════════════════════════════════════════════════════");
         System.out.println("  3.8 – ANIVERSARIANTES EM OUTUBRO E DEZEMBRO");
         System.out.println("══════════════════════════════════════════════════════");
@@ -99,9 +78,6 @@ public class Principal {
             }
         }
 
-        // ─────────────────────────────────────────────────
-        // 3.9 – Funcionário com maior idade
-        // ─────────────────────────────────────────────────
         System.out.println("\n══════════════════════════════════════════════════════");
         System.out.println("  3.9 – FUNCIONÁRIO COM MAIOR IDADE");
         System.out.println("══════════════════════════════════════════════════════");
@@ -114,9 +90,7 @@ public class Principal {
             System.out.printf("  Nome: %-15s | Idade: %d anos%n", maisVelho.getNome(), idade);
         }
 
-        // ─────────────────────────────────────────────────
-        // 3.10 – Lista de funcionários em ordem alfabética
-        // ─────────────────────────────────────────────────
+
         System.out.println("\n══════════════════════════════════════════════════════");
         System.out.println("  3.10 – FUNCIONÁRIOS EM ORDEM ALFABÉTICA");
         System.out.println("══════════════════════════════════════════════════════");
@@ -124,9 +98,7 @@ public class Principal {
                 .sorted(Comparator.comparing(Funcionario::getNome))
                 .forEach(f -> imprimirFuncionario(f));
 
-        // ─────────────────────────────────────────────────
-        // 3.11 – Total dos salários
-        // ─────────────────────────────────────────────────
+
         System.out.println("\n══════════════════════════════════════════════════════");
         System.out.println("  3.11 – TOTAL DOS SALÁRIOS");
         System.out.println("══════════════════════════════════════════════════════");
@@ -135,9 +107,6 @@ public class Principal {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         System.out.println("  Total: R$ " + formatarSalario(totalSalarios));
 
-        // ─────────────────────────────────────────────────
-        // 3.12 – Salários mínimos por funcionário
-        // ─────────────────────────────────────────────────
         System.out.println("\n══════════════════════════════════════════════════════");
         System.out.println("  3.12 – SALÁRIOS MÍNIMOS POR FUNCIONÁRIO (R$ 1.212,00)");
         System.out.println("══════════════════════════════════════════════════════");
@@ -153,9 +122,7 @@ public class Principal {
         System.out.println("══════════════════════════════════════════════════════");
     }
 
-    /**
-     * Imprime os dados de um funcionário de forma formatada.
-     */
+
     private static void imprimirFuncionario(Funcionario f) {
         System.out.printf("  Nome: %-12s | Nascimento: %s | Salário: R$ %15s | Função: %s%n",
                 f.getNome(),
@@ -164,9 +131,7 @@ public class Principal {
                 f.getFuncao());
     }
 
-    /**
-     * Formata um BigDecimal com separador de milhar (.) e decimal (,).
-     */
+
     private static String formatarSalario(BigDecimal valor) {
         FORMATO_NUMERO.setMinimumFractionDigits(2);
         FORMATO_NUMERO.setMaximumFractionDigits(2);
